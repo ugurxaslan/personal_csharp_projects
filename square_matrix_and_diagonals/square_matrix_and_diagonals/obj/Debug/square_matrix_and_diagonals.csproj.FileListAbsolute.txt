@@ -1,0 +1,8 @@
+C:\Users\ugurxaslan\source\repos\square_matrix_and_diagonals\square_matrix_and_diagonals\bin\Debug\square_matrix_and_diagonals.exe.config
+C:\Users\ugurxaslan\source\repos\square_matrix_and_diagonals\square_matrix_and_diagonals\bin\Debug\square_matrix_and_diagonals.exe
+C:\Users\ugurxaslan\source\repos\square_matrix_and_diagonals\square_matrix_and_diagonals\bin\Debug\square_matrix_and_diagonals.pdb
+C:\Users\ugurxaslan\source\repos\square_matrix_and_diagonals\square_matrix_and_diagonals\obj\Debug\square_matrix_and_diagonals.csproj.AssemblyReference.cache
+C:\Users\ugurxaslan\source\repos\square_matrix_and_diagonals\square_matrix_and_diagonals\obj\Debug\square_matrix_and_diagonals.csproj.SuggestedBindingRedirects.cache
+C:\Users\ugurxaslan\source\repos\square_matrix_and_diagonals\square_matrix_and_diagonals\obj\Debug\square_matrix_and_diagonals.csproj.CoreCompileInputs.cache
+C:\Users\ugurxaslan\source\repos\square_matrix_and_diagonals\square_matrix_and_diagonals\obj\Debug\square_matrix_and_diagonals.exe
+C:\Users\ugurxaslan\source\repos\square_matrix_and_diagonals\square_matrix_and_diagonals\obj\Debug\square_matrix_and_diagonals.pdb
