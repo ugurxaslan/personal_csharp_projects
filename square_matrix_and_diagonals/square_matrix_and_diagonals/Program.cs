@@ -7,7 +7,7 @@ namespace square_matrix_and_diagonals
         static int length;
         static void Main(string[] args)
         {
-            length = 10;
+            length = 11;
 
             //The matrices in this program must be square matrices.
             int[,] matrix = matrix_create_random(length, length);
