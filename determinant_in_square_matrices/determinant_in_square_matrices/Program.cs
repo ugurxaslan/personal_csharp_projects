@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+
 namespace determinant_in_square_matrices
 {
     internal class Program
@@ -20,71 +22,101 @@ namespace determinant_in_square_matrices
         
         static void Main(string[] args)
         {
-            int[,] matrix = matrix_random(3);
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+
+            //test
+            int[,] matrix = matrix_random(12);
             matrix_write(matrix);
-            Console.WriteLine("Determinant : " + recursive_det(matrix));
+            Console.WriteLine("Determinant : " + recursive_det(matrix,matrix.GetLength(0)));
 
+            watch.Stop();
 
+            TimeSpan time = watch.Elapsed;
+            string time_string = String.Format("{0:00}:{1:00}:{2:00}", time.Minutes, time.Seconds, time.Milliseconds / 10 );
+            Console.WriteLine("Time : " + time_string);
+            //test
 
             Console.Write("\nEnter matrix size : ");
-            int n = Convert.ToInt32(Console.ReadLine());
-            int[,] matrix_1 = matrix_init(n);
+            int length = Convert.ToInt32(Console.ReadLine());
+            int[,] matrix_1 = matrix_init(length);
             matrix_write(matrix_1);
-            Console.WriteLine("Determinant : " + recursive_det(matrix_1));
+            Console.WriteLine("Determinant : " + recursive_det(matrix_1,length));
             Console.ReadLine();
         }
-        static bool call = false;//control call for rows or columns
-        static int recursive_det(int[,] matrix)
+        static long recursive_det(int[,] matrix, int length)
         {
-            int determinant = 0;
-
-            if (!call)
-            {
-                bool flag = is_row_column_zero(matrix);
-                if (flag) return 0;
-            }
-                
-           
-            if (matrix.GetLength(0) == 2)
+            long determinant = 0;
+            int[] frekans = zero_frekans(matrix, length);
+            if ( length == 2)
             {
                 return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
             }
-            else
+            else if ( Array.IndexOf(frekans,length) != -1)//is a row or column all zero?
             {
+                return 0;
+            }
+            else 
+            {   
                 int cofaktor_i = 0;
                 int cofaktor_j = 0;
-
-                 //cofaktors are row
-                for (cofaktor_j = 0; cofaktor_j < matrix.GetLength(0); cofaktor_j++)
+                int temp1 = 0;
+                int temp2 = 0;
+                for (int i = 0; i < length; i++)
                 {
-                    determinant += Convert.ToInt32(Math.Pow(-1, cofaktor_i + cofaktor_j)) *
-                                    matrix[cofaktor_i, cofaktor_j] * recursive_det(minor(matrix, cofaktor_i, cofaktor_j));
+                    if (temp1 < frekans[i])
+                    {
+                        temp1 = frekans[i];
+                        cofaktor_i = i;
+                    }
+                }
+                for (int j = length; j < 2*length; j++)
+                {
+                    if (temp2 < frekans[j])
+                    {
+                        temp2 = frekans[j];
+                        cofaktor_j = j - length;
+                    }
+                        
                 }
 
-                /* //cofaktors are column
-                determinant = 0;
-                for (cofaktor_i = 0; cofaktor_i < matrix.GetLength(0); cofaktor_i++)
+                if( temp1> temp2)
                 {
-                    determinant += Convert.ToInt32(Math.Pow(-1, cofaktor_i + cofaktor_j)) *
-                                 matrix[cofaktor_i, cofaktor_j] * det(minor(matrix, cofaktor_i, cofaktor_j));
+                    //cofaktors are row
+                    for (cofaktor_j = 0; cofaktor_j < length; cofaktor_j++)
+                    {
+                        if (matrix[cofaktor_i, cofaktor_j] == 0)
+                            continue;
+                        determinant += Convert.ToInt32(Math.Pow(-1, cofaktor_i + cofaktor_j)) *
+                                        matrix[cofaktor_i, cofaktor_j] * recursive_det(minor(matrix, cofaktor_i, cofaktor_j, length - 1), length - 1);
+                    }
                 }
-                */
+                else
+                {
+                    //cofaktors are column
+                    for (cofaktor_i = 0; cofaktor_i < length; cofaktor_i++)
+                    {
+                        if (matrix[cofaktor_i, cofaktor_j] == 0)
+                            continue;
+                        determinant += Convert.ToInt32(Math.Pow(-1, cofaktor_i + cofaktor_j)) *
+                                        matrix[cofaktor_i, cofaktor_j] * recursive_det(minor(matrix, cofaktor_i, cofaktor_j, length - 1), length - 1);
+                    }
+                }
             }
-            call = false;
             return determinant;
         }
 
-        static int[,] minor(int[,] matrix, int cofaktor_i, int cofaktor_j)
+        static int[,] minor(int[,] matrix, int cofaktor_i, int cofaktor_j,int length)
         {
-            int[,] minor = new int[matrix.GetLength(0) - 1, matrix.GetLength(0) - 1];
+            int[,] minor = new int[ length, length];
             int minor_i = 0;
             int minor_j = 0;
 
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            for (int i = 0; i < length+1; i++)
             {
                 if (cofaktor_i != i)//excluding cofactor row
                 {
-                    for (int j = 0; j < matrix.GetLength(0); j++)
+                    for (int j = 0; j < length+1; j++)
                     {
                         if (cofaktor_j != j)//excluding cofactor column
                         {
@@ -99,25 +131,22 @@ namespace determinant_in_square_matrices
             return minor;
         }
 
-        static bool is_row_column_zero(int[,] matrix)
+        static int[] zero_frekans(int[,] matrix ,int length)
         {
-            call = true;
-            int count_row;
-            int count_col;
+            int[] count_row_col = new int[2*length];
 
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            for (int i = 0; i < length; i++)
             {
-                count_row = 0;
-                count_col = 0;
-                for (int j = 0;j < matrix.GetLength(0); j++)
+                for (int j = 0;j < length; j++)
                 {
-                    if (matrix[i,j] == 0) count_row++;
-                    if (matrix[j,i] == 0) count_col++;
+                    if (matrix[i,j] == 0) 
+                    {
+                        count_row_col[i]++; //row frekans
+                        count_row_col[length+j]++;//col frekans
+                    }
                 }
-                if (count_row == matrix.Length || count_col == matrix.Length)
-                    return true;
             }
-            return false;
+            return count_row_col;
         }
 
         static int[,] matrix_random(int n)
@@ -129,7 +158,7 @@ namespace determinant_in_square_matrices
             {
                 for(int j = 0; j < n; j++)
                 {
-                    matrix[i, j] = random.Next(11)-5;
+                    matrix[i, j] = random.Next(10);
                 }
             }
             return matrix;
