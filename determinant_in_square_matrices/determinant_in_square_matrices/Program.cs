@@ -26,7 +26,7 @@ namespace determinant_in_square_matrices
             watch.Start();
 
             //test
-            int[,] matrix = matrix_random(12);
+            int[,] matrix = matrix_random(10);
             matrix_write(matrix);
             Console.WriteLine("Determinant : " + recursive_det(matrix,matrix.GetLength(0)));
 
@@ -158,7 +158,7 @@ namespace determinant_in_square_matrices
             {
                 for(int j = 0; j < n; j++)
                 {
-                    matrix[i, j] = random.Next(10);
+                   matrix[i, j] = random.Next(7)-3;
                 }
             }
             return matrix;
