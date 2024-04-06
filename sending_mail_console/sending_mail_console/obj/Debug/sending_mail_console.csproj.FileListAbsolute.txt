@@ -1,0 +1,8 @@
+C:\Users\ugurxaslan\Desktop\sending_mail_console\sending_mail_console\bin\Debug\sending_mail_console.exe.config
+C:\Users\ugurxaslan\Desktop\sending_mail_console\sending_mail_console\bin\Debug\sending_mail_console.exe
+C:\Users\ugurxaslan\Desktop\sending_mail_console\sending_mail_console\bin\Debug\sending_mail_console.pdb
+C:\Users\ugurxaslan\Desktop\sending_mail_console\sending_mail_console\obj\Debug\sending_mail_console.csproj.AssemblyReference.cache
+C:\Users\ugurxaslan\Desktop\sending_mail_console\sending_mail_console\obj\Debug\sending_mail_console.csproj.SuggestedBindingRedirects.cache
+C:\Users\ugurxaslan\Desktop\sending_mail_console\sending_mail_console\obj\Debug\sending_mail_console.csproj.CoreCompileInputs.cache
+C:\Users\ugurxaslan\Desktop\sending_mail_console\sending_mail_console\obj\Debug\sending_mail_console.exe
+C:\Users\ugurxaslan\Desktop\sending_mail_console\sending_mail_console\obj\Debug\sending_mail_console.pdb
